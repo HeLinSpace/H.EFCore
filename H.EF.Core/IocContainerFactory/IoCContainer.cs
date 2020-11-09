@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Autofac.Extras.DynamicProxy;
 using Microsoft.Extensions.DependencyModel;
 using H.EF.Core.Helpers;
-using H.EF.Core.IServices;
 
 namespace H.EF.Core
 {
@@ -201,20 +200,13 @@ namespace H.EF.Core
             _builder.RegisterType<TransactionInterceptor>();
             foreach (var assembly in assemblys)
             {
-                var contains = assembly.GetTypes().Where(type => type.Equals(typeof(IService)));
+                var contains = assembly.GetCustomAttributes().Where(type => type.Equals(typeof(TransactionHandlerAttribute)));
                 if (contains.Count() > 0)
                 {
                     _builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                     .EnableInterfaceInterceptors().InterceptedBy(typeof(TransactionInterceptor));
 
                 }
-
-                //if (_assemblyHelper.Matches(assembly.FullName, "ZhangDianGuanJia"))
-                //{
-                //    _builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                //    .EnableInterfaceInterceptors().InterceptedBy(typeof(TransactionInterceptor));
-
-                //}
             }
         }
         /// <summary>

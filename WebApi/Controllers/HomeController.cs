@@ -1,48 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using H.EF.Core.Model;
-using System.Collections.Generic;
-using WebApi.Entity;
-using H.EF.Core.Extensions;
-using System;
-using H.EF.Core.Repositories;
-using WebApi;
+﻿using H.EF.Core.Model;
+using Microsoft.AspNetCore.Mvc;
+using Videos.IService;
 
-namespace ZhangDianGuanJia.Controllers
+namespace Movies.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUnitRepository _repository;
+        private readonly IVideoManageService _videoManageService;
 
-        public HomeController(IUnitRepository repository)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="videoManageService"></param>
+        public HomeController(IVideoManageService videoManageService)
         {
-            _repository = repository;
+            _videoManageService = videoManageService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return Ok("123");
-        }
-
-        public ActionResult add([FromBody]SingleModel data)
-        {
-            var labels = data.key.Split(",").Distinct().ToList();
-            var insert = labels.Select(s =>
-            new law_label
-            {
-                Id = GuidExtend.NewGuid(),
-                created_by = "2A63A249661D4C468EAB-69F7FA06C71B",
-                updated_by = "2A63A249661D4C468EAB-69F7FA06C71B",
-                created_time = DateTime.Now,
-                updated_time = DateTime.Now,
-                is_delete = 0,
-                label = s,
-                type= "FINANCIAL"
-            }).ToList();
-
-            _repository.BulkInsert<law_label>(insert);
-
-            return Ok();
+            return View(@"\Views\ClientManagement\Index.cshtml", _videoManageService.GetMovies(new PageQuery()));
         }
     }
 }

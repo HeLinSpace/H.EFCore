@@ -18,6 +18,8 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Videos.IService;
+using Videos.Service;
 
 namespace WebApi
 {
@@ -138,17 +140,18 @@ namespace WebApi
         /// <returns></returns>
         private IServiceProvider InitIoC(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("mysql");
+            var connectionString = Configuration.GetConnectionString("SqlServer");
             var dbContextOption = new DbContextOption
             {
                 ConnectionString = connectionString,
-                DbType = DbType.MYSQL
+                DbType = DbType.MSSQLSERVER
             };
             IoCContainer.Register(Configuration);//注册配置
             IoCContainer.Register(dbContextOption);//注册数据库配置信息
 
             IoCContainer.RegisterSingleInstance<IDbContext, UnitDbContext>();
             IoCContainer.RegisterSingleInstance<IUnitRepository, UnitRepository>();
+            IoCContainer.RegisterSingleInstance<IVideoManageService, VideoManageService>();
             IoCContainer.Initialize(services);
 
             return IoCContainer.Build(services);

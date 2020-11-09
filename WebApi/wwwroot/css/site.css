@@ -1,0 +1,77 @@
+﻿.video-div {
+    width: 200px;
+    height: 300px;
+}
+
+.video-div-item {
+    width: 200px;
+    height: 280px;
+}
+
+.video-div-seach-item {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 300px;
+}
+
+.video-div-seach-name {
+    color: dodgerblue;
+    font-size: 20px;
+}
+
+.video-div-seach-img {
+    width: 235px;
+    height: 300px;
+}
+
+.video-div-img {
+    width: 100%;
+    height: 100%;
+}
+
+.pager-div {
+    text-align: center;
+    font-size: 16px;
+    color: dodgerblue;
+}
+
+.pager-text {
+    width: 30px;
+    height: 20px;
+}
+
+.score {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    width: 60px;
+    z-index: 5;
+    height: 36px;
+    line-height: 36px
+}
+
+    .score i {
+        background: #000;
+        z-index: 1;
+        filter: alpha(opacity=50);
+        opacity: .5;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .score em {
+        z-index: 2;
+        text-align: center;
+        font-size: 16px;
+        color: #fc7643;
+        font-weight: 400;
+        font-family: 'Microsoft YaHei';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
